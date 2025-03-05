@@ -1,15 +1,16 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Topbar from './Topbar';
 import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons
+import { deleteTodo } from '../app/slices/appSlice';
 
 const Todos = () => {
     const { todos } = useSelector((state) => state.app);
 
 
-   
 
+    const dispatch = useDispatch()
     // Function to get priority color
     const getPriorityColor = (priority) => {
         switch (priority) {
@@ -24,11 +25,18 @@ const Todos = () => {
         }
     };
 
+    const handleDelete = (todoId) => {
+        if(confirm("Are you sure?")){
+            dispatch(deleteTodo(todoId))
+        }
+    }
+
+
     return (
         <div className="todos-container">
             <div className="d-flex flex-column w-full align-items-stretch flex-shrink-0 bg-body-tertiary">
                 <Topbar title="Your Todos" />
-                <div className="list-group list-group-flush border-bottom overflow-auto" style={{height:"90vh"}}>
+                <div className="list-group list-group-flush border-bottom overflow-auto" style={{ height: "90vh" }}>
                     {todos && todos.length > 0 ? (
                         todos.map((todo) => (
                             <div key={todo.createdAt} className="list-group-item list-group-item-action py-3 lh-sm">
@@ -38,7 +46,7 @@ const Todos = () => {
                                         {new Date(todo.createdAt).toLocaleString()}
                                     </small>
                                 </div>
-                                
+
                                 {/* Priority Badge */}
                                 <div className="mb-2">
                                     <span className={getPriorityColor(todo.priority)}>
@@ -54,7 +62,7 @@ const Todos = () => {
                                     <Link to={`/edit/${todo.id}`} className="btn btn-sm btn-primary">
                                         <FaEdit /> Edit
                                     </Link>
-                                    <button className="btn btn-sm btn-danger">
+                                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(todo.createdAt)}>
                                         <FaTrash /> Delete
                                     </button>
                                 </div>

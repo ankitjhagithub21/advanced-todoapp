@@ -19,11 +19,15 @@ export const appSlice = createSlice({
     addTodo:(state,action) => {
       state.todos = [...state.todos,action.payload]
       localStorage.setItem('todos',JSON.stringify(state.todos))
+    },
+    deleteTodo:(state,action) => {
+      state.todos = state.todos.filter((todo)=>todo.createdAt != action.payload)
+      localStorage.setItem('todos',JSON.stringify(state.todos))
     }
   },
 })
 
 
-export const { setTodos ,addTodo,setIsOpen} = appSlice.actions
+export const { setTodos ,addTodo,setIsOpen, deleteTodo} = appSlice.actions
 
 export default appSlice.reducer
