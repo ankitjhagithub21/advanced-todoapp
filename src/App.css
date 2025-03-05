@@ -1,0 +1,42 @@
+main{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+.todos-container{
+    width: 100%;
+    height: 100vh;
+   
+   
+}
+.todos{
+   height: 100%;
+    overflow: scroll;
+}
+.sidebar{
+    display: flex;
+    width: 280px;
+    height: 100vh;
+}
+
+
+
+@media (max-width:768px) {
+    .sidebar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        transition: 0.5s;
+        
+    }
+    .open{
+        transform: translateX(0%);
+    }
+    
+    .close{
+        transform: translateX(-100%);
+    }
+}
