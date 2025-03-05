@@ -15,6 +15,9 @@ main{
    height: 100%;
     overflow: scroll;
 }
+.form-container{
+    padding: 5vh 5vw;
+}
 .sidebar{
     display: flex;
     width: 280px;
@@ -39,4 +42,5 @@ main{
     .close{
         transform: translateX(-100%);
     }
+   
 }

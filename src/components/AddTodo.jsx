@@ -33,7 +33,7 @@ const AddTodo = () => {
     return (
        <section className="todos-container">
         <Topbar title="Add Todo"/>
-         <div className="p-5 my-5">
+         <div className="my-5 form-container">
             
             <form onSubmit={handleSubmit}>
                 {/* Task Title */}
