@@ -19,10 +19,13 @@ A simple **Todo Application** built with **React, Redux, and Bootstrap**, allowi
 ## 📸 Screenshots
 
 ### Todo List View
-![todo list view](image.png)
+![image](https://github.com/user-attachments/assets/04348f63-e42f-4986-98f5-87a1122681d2)
+
+### Add Todo 
+![image](https://github.com/user-attachments/assets/d441b239-8b7e-4310-a4d0-8e6056388a6a)
 
 ### Edit Todo Modal
-![edit todo modal](image-1.png)
+![image](https://github.com/user-attachments/assets/12eb6055-ea01-4f8c-baaa-0d8ea1298729)
 
 ## 🛠 Tech Stack
 - **Frontend**: React.js, Redux Toolkit, Bootstrap
