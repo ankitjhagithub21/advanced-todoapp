@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Topbar from './Topbar';
 import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons
-import { deleteTodo } from '../app/slices/appSlice';
+import { deleteTodo, setCurrTodo } from '../app/slices/appSlice';
 
 const Todos = () => {
     const { todos } = useSelector((state) => state.app);
@@ -26,7 +25,7 @@ const Todos = () => {
     };
 
     const handleDelete = (todoId) => {
-        if(confirm("Are you sure?")){
+        if (confirm("Are you sure?")) {
             dispatch(deleteTodo(todoId))
         }
     }
@@ -59,10 +58,17 @@ const Todos = () => {
 
                                 {/* Actions (Edit & Delete) */}
                                 <div className="d-flex gap-3 mt-2">
-                                    <Link to={`/edit/${todo.id}`} className="btn btn-sm btn-primary">
-                                        <FaEdit /> Edit
-                                    </Link>
-                                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(todo.createdAt)}>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary btn-sm d-flex align-items-center gap-1"
+                                       onClick={()=>dispatch(setCurrTodo(todo))}
+                                    >
+                                         <FaEdit />
+                                        Edit
+                                    </button>
+
+                                  
+                                    <button className="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onClick={() => handleDelete(todo.createdAt)}>
                                         <FaTrash /> Delete
                                     </button>
                                 </div>

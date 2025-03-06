@@ -95,7 +95,7 @@ const AddTodo = () => {
                 </div>
                     
 
-                <button type="submit" className="btn btn-primary">Add Todo</button>
+                <button type="submit" className="btn btn-primary">Add</button>
             </form>
         </div>
        </section>
