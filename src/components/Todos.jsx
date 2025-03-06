@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Topbar from './Topbar';
-import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons
-import { deleteTodo, setCurrTodo } from '../app/slices/appSlice';
+import { FaEdit, FaTrash, FaCheckCircle, FaRegCircle } from "react-icons/fa"; // Import icons
+import { deleteTodo, setCurrTodo, toggleComplete } from '../app/slices/appSlice';
 
 const Todos = () => {
     const { todos } = useSelector((state) => state.app);
@@ -38,12 +38,22 @@ const Todos = () => {
                 <div className="list-group list-group-flush border-bottom overflow-auto" style={{ height: "90vh" }}>
                     {todos && todos.length > 0 ? (
                         todos.map((todo) => (
-                            <div key={todo.createdAt} className="list-group-item list-group-item-action py-3 lh-sm">
+                            <div key={todo.id} className="list-group-item list-group-item-action py-3 border lh-sm">
+                                <div className='d-flex align-items-center justify-content-between mb-1'>
+                                    <small className="text-body-secondary">
+                                        {new Date(todo.id).toLocaleString()}
+                                    </small>
+                                    {/* ✅ Mark as Complete Button */}
+                                    <button
+                                        className="btn"
+                                        onClick={() => dispatch(toggleComplete(todo.id))}
+                                    >
+                                        {todo.completed ? <FaCheckCircle className="text-success" size={25} /> : <FaRegCircle size={25}/>}
+                                    </button>
+                                </div>
                                 <div className="d-flex w-100 align-items-center justify-content-between">
                                     <strong className="mb-1">{todo.title}</strong>
-                                    <small className="text-body-secondary">
-                                        {new Date(todo.createdAt).toLocaleString()}
-                                    </small>
+
                                 </div>
 
                                 {/* Priority Badge */}
@@ -53,22 +63,31 @@ const Todos = () => {
                                     </span>
                                 </div>
 
+
                                 {/* Description */}
                                 <div className="col-10 mb-1 small">{todo.description}</div>
+
+                                {/*Deadline */}
+                                <div className="mb-2">
+                                    <span>
+                                        Task Deadline : {todo.dueDate}
+                                    </span>
+                                </div>
+
 
                                 {/* Actions (Edit & Delete) */}
                                 <div className="d-flex gap-3 mt-2">
                                     <button
                                         type="button"
                                         className="btn btn-primary btn-sm d-flex align-items-center gap-1"
-                                       onClick={()=>dispatch(setCurrTodo(todo))}
+                                        onClick={() => dispatch(setCurrTodo(todo))}
                                     >
-                                         <FaEdit />
+                                        <FaEdit />
                                         Edit
                                     </button>
 
-                                  
-                                    <button className="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onClick={() => handleDelete(todo.createdAt)}>
+
+                                    <button className="btn btn-sm btn-danger d-flex align-items-center justify-content-center" onClick={() => handleDelete(todo.id)}>
                                         <FaTrash /> Delete
                                     </button>
                                 </div>

@@ -19,8 +19,10 @@ const AddTodo = () => {
             description,
             priority,
             dueDate,
-            createdAt:new Date().getTime()
+            id:new Date().getTime(),
+            completed:false
         }
+        
         dispatch(addTodo(data))
         toast.success("Todo added.")
        setTitle('')

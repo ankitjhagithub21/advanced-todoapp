@@ -33,11 +33,21 @@ export const appSlice = createSlice({
       localStorage.setItem('todos', JSON.stringify(state.todos));
     },
     deleteTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.createdAt !== action.payload);
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
       localStorage.setItem('todos', JSON.stringify(state.todos));
     },
-  },
+    updateTodo: (state, action) => {
+      state.todos = state.todos.map((todo) =>
+        todo.id === action.payload.id ? action.payload : todo
+      );
+      localStorage.setItem('todos', JSON.stringify(state.todos));
+    },
+    toggleComplete: (state, action) => {
+     state.todos = state.todos.map((todo)=> todo.id === action.payload ? {...todo, completed: !todo.completed} : todo  )
+     localStorage.setItem('todos', JSON.stringify(state.todos));
+  }
+  }
 });
 
-export const { setUser, logoutUser, setTodos, addTodo, setIsOpen, deleteTodo, setCurrTodo } = appSlice.actions;
+export const {setUser,logoutUser, setTodos, addTodo, setIsOpen, deleteTodo, setCurrTodo, updateTodo,toggleComplete } = appSlice.actions;
 export default appSlice.reducer;
