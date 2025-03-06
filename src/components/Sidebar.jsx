@@ -1,9 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { FaHome, FaPlus } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, setIsOpen } from "../app/slices/appSlice";
 
 const Sidebar = () => {
     const {isOpen} = useSelector(state=>state.app)
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        navigate("/login");
+    };
+    
+
     return (
         <div className={`flex-column flex-shrink-0 p-3 text-bg-dark sidebar ${isOpen ? 'open':'close'}`}>
             {/* Logo */}
@@ -19,7 +29,7 @@ const Sidebar = () => {
 
             {/* Navigation Links */}
             <ul className="nav nav-pills flex-column mb-auto">
-                <li className="nav-item">
+                <li className="nav-item" onClick={()=>dispatch(setIsOpen(false))}>
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
@@ -30,9 +40,10 @@ const Sidebar = () => {
                         Home
                     </NavLink>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item" onClick={()=>dispatch(setIsOpen(false))}>
                     <NavLink
                         to="/add"
+                        
                         className={({ isActive }) =>
                             `d-flex nav-link gap-2 align-items-center mb-3 text-white text-decoration-none ${isActive ? "active" : ""}`
                         }
@@ -81,10 +92,10 @@ const Sidebar = () => {
                     <li>
                         <hr className="dropdown-divider" />
                     </li>
-                    <li>
-                        <a className="dropdown-item" href="#">
+                    <li onClick={handleLogout}>
+                        <NavLink className="dropdown-item" to="/login">
                             Sign out
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

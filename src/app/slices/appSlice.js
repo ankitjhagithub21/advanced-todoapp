@@ -3,13 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   todos: JSON.parse(localStorage.getItem('todos')) || [],
   isOpen: false,
-  currTodo: null
+  currTodo: null,
+  user: JSON.parse(localStorage.getItem('user')) || null, // Store user data
 };
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload)); // Save user in localStorage
+    },
+    logoutUser: (state) => {
+      state.user = null;
+      localStorage.removeItem('user'); // Remove user from localStorage
+    },
     setTodos: (state, action) => {
       state.todos = action.payload;
     },
@@ -27,14 +36,8 @@ export const appSlice = createSlice({
       state.todos = state.todos.filter((todo) => todo.createdAt !== action.payload);
       localStorage.setItem('todos', JSON.stringify(state.todos));
     },
-    updateTodo: (state, action) => {
-      state.todos = state.todos.map((todo) =>
-        todo.createdAt === action.payload.createdAt ? action.payload : todo
-      );
-      localStorage.setItem('todos', JSON.stringify(state.todos));
-    }
-  }
+  },
 });
 
-export const { setTodos, addTodo, setIsOpen, deleteTodo, setCurrTodo, updateTodo } = appSlice.actions;
+export const { setUser, logoutUser, setTodos, addTodo, setIsOpen, deleteTodo, setCurrTodo } = appSlice.actions;
 export default appSlice.reducer;
